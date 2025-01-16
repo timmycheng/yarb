@@ -2,6 +2,6 @@
 <opml version="2.0">
 <head><title>CustomRSS</title></head>
 <body>
-<outline title="HackerOne Hacker Activity" text="HackerOne Hacker Activity" htmlUrl="https://hackerone.com/hacktivity" xmlUrl="https://rsshub.app/hackerone/hacktivity" type="rss" />
+<outline title="腾讯每日安全" text="Sectoday Next" htmlUrl="https://sectoday.tencent.com/info-today" xmlUrl="https://sectoday.tencent.com/api/atom.xml" type="rss" />
 </body>
 </opml>

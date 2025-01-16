@@ -7,7 +7,7 @@
 
     "rss": {
         "CustomRSS": {
-            "enabled": false,
+            "enabled": true,
             "filename": "CustomRSS.opml"
         },
         "CyberSecurityRSS": {
@@ -31,7 +31,7 @@
             "filename": "awesome-security-feed.opml"
         },
         "wechatRSS": {
-            "enabled": true,
+            "enabled": false,
             "url": "https://raw.githubusercontent.com/ttttmr/Wechat2RSS/master/static/opml/sec.opml",
             "filename": "wechatRSS.opml"
         },
