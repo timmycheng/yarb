@@ -4,9 +4,12 @@ name: Update dailynews
 
 # 国际标准时间2点（北京时间10点）
 on:
-  schedule:
-    - cron: '30 2 * * *'
+  # schedule:
+  #   - cron: '30 2 * * *'
   workflow_dispatch:
+  push:
+    branches:
+      - refactor
 
 jobs:
   build:
@@ -23,12 +26,12 @@ jobs:
       - name: Push articles
         env:
           FEISHU_KEY: ${{ secrets.FEISHU_KEY }}
-          WECOM_KEY: ${{ secrets.WECOM_KEY }}
-          DINGTALK_KEY: ${{ secrets.DINGTALK_KEY }}
-          QQ_KEY: ${{ secrets.QQ_KEY }}
-          TELEGRAM_KEY: ${{ secrets.TELEGRAM_KEY }}
-          MAIL_KEY: ${{ secrets.MAIL_KEY }}
-          MAIL_RECEIVER: ${{ secrets.MAIL_RECEIVER }}
+          # WECOM_KEY: ${{ secrets.WECOM_KEY }}
+          # DINGTALK_KEY: ${{ secrets.DINGTALK_KEY }}
+          # QQ_KEY: ${{ secrets.QQ_KEY }}
+          # TELEGRAM_KEY: ${{ secrets.TELEGRAM_KEY }}
+          # MAIL_KEY: ${{ secrets.MAIL_KEY }}
+          # MAIL_RECEIVER: ${{ secrets.MAIL_RECEIVER }}
         run: python3 yarb.py
 
       - name: Commit

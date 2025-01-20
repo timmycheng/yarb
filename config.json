@@ -14,9 +14,9 @@
 
     "bot": {
         "feishu": {
-            "enabled": true,
+            "enabled": false,
             "secrets": "FEISHU_KEY",
-            "key": "5d8688cb-3b03-45c9-a9b9-23322485e4b7"
+            "key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         },
         "wecom": {
             "enabled": false,
