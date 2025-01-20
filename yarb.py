@@ -173,7 +173,7 @@ def cleanup():
 
 async def job(args):
     """定时任务"""
-    print(f'{pyfiglet.figlet_format("yarb")}\n{today}')
+    print(f'{pyfiglet.figlet_format("yarb")}\nRun Date: {today}')
 
     global root_path
     root_path = Path(__file__).absolute().parent
@@ -183,14 +183,14 @@ async def job(args):
         config_path = root_path.joinpath('config.toml')
     with open(config_path, encoding='utf-8') as f:
         conf = toml.load(f)
-
+        # console.print(f'[+] config: {conf}', style='bold green')
     proxy_rss = conf['proxy']['url'] if conf['proxy']['rss'] else ''
     feeds = init_rss(conf['rss'], args.update, proxy_rss)
 
     results = []
     if args.test:
         # 测试数据
-        results.extend({f'test{i}': {Pattern.create(i*500): 'test'}} for i in range(1, 20))
+        results.extend({f'test{i}': {Pattern.create(i*500): 'test'}} for i in range(1, 3))
     else:
         # 获取文章
         numb = 0
