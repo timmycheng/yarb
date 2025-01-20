@@ -7,4 +7,3 @@
   - [35年前首次出现的勒索软件：伪装成软盘分享的“AIDS信息”](https://www.tomshardware.com/tech-industry/cyber-security/the-first-ever-ransomware-dropped-35-years-ago-disguised-as-a-floppy-sharing-aids-information)
   - [隐藏在电子邮件中的黑客威胁：VIP键盘记录器和0bj3ctivityStealer](https://www.forbes.com/sites/daveywinder/2025/01/19/critical-hidden-email-hack-warning-issued-for-gmail-and-outlook-users/)
   - [星风暴：俄黑客瞄准WhatsApp实施钓鱼攻击](https://sectoday.tencent.com/event/ahxDdJQBok1VOLb0KynW)
-  - [量子Diffie-Hellman密钥交换协议的设计与研究](https://cybersecuritynews.com/quantum-diffie-hellman-key-exchange/)
