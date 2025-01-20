@@ -2,6 +2,7 @@
 
 一个方便获取每日安全资讯的爬虫和推送程序。支持导入 opml 文件，因此也可以订阅其他任何 RSS 源。
 基于VulnTotal-Team开发的[yarb](https://github.com/VulnTotal-Team/yarb)进行重构，具体内容如下：
+
 - 优化并修改配置文件，从json格式改成toml格式
 - 优化rss读取模式，直接解析rss文件夹，识别路径中opml文件数量及处理相关订阅源
 

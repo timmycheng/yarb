@@ -10,3 +10,4 @@ pyrate-limiter
 poetry
 git+https://github.com/kurtmckee/listparser
 toml
+loguru

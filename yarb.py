@@ -2,6 +2,7 @@
 
 import os
 import json
+import sys
 import time
 import asyncio
 import schedule
@@ -19,6 +20,8 @@ from utils import *
 
 import requests
 requests.packages.urllib3.disable_warnings()
+
+from loguru import logger
 
 today = datetime.datetime.now().strftime("%Y-%m-%d")
 
@@ -44,30 +47,31 @@ def update_today(data: list=[]):
                 content += f'  - [{title}]({url})\n'
         f1.write(content)
         f2.write(content)
+    logger.info(f'更新 today 文件：{today_path} 和 {archive_path}')
 
-
+"""更新订阅源文件"""
 def update_rss(rss: dict, proxy_url=''):
-    """更新订阅源文件"""
+
     proxy = {'http': proxy_url, 'https': proxy_url} if proxy_url else {'http': None, 'https': None}
 
     (key, value), = rss.items()
     rss_path = root_path.joinpath(f'rss/{value["filename"]}')
-
+    logger.info(f'更新 RSS 源：{rss.items()}')
     result = None
     if url := value.get('url'):
         r = requests.get(value['url'], proxies=proxy)
         if r.status_code == 200:
             with open(rss_path, 'w+', encoding='utf-8') as f:
                 f.write(r.text)
-            print(f'[+] 更新完成：{key}')
+            logger.success(f'更新完成：{key}')
             result = {key: rss_path}
         elif rss_path.exists():
-            print(f'[-] 更新失败，使用旧文件：{key}')
+            logger.warning(f'更新失败，使用旧文件：{key}')
             result = {key: rss_path}
         else:
-            print(f'[-] 更新失败，跳过：{key}')
+            logger.error(f'更新失败，跳过：{key}')
     else:
-        print(f'[+] 本地文件：{key}')
+        logger.info(f'本地文件：{key}')
 
     return result
 
@@ -102,10 +106,10 @@ def parseThread(conf: dict, url: str, proxy_url=''):
                 item = {entry.title: entry.link}
                 # print(item)
                 result |= item
-        console.print(f'[+] {title}\t{url}\t{len(result.values())}/{len(r.entries)}', style='bold green')
+        logger.success(f'Fetched:[{title}]:{url}\t{len(result.values())}/{len(r.entries)}')
     except Exception as e:
-        console.print(f'[-] failed: {url}', style='bold red')
-        print(e)
+        logger.error(f'failed: {url}')
+        logger.exception(e)
     return title, result
 
 
@@ -159,16 +163,17 @@ def init_rss(conf: dict, update: bool=False, proxy_url=''):
                 if not check:
                     feeds.append(url)
         except Exception as e:
-            console.print(f'[-] 解析失败：{value}', style='bold red')
+            logger.error(f'解析失败：{value}')
             print(e)
 
-    console.print(f'[+] {len(feeds)} feeds', style='bold yellow')
+    logger.info(f'{len(feeds)} feeds')
     return feeds
 
 
 def cleanup():
     """结束清理"""
-    qqBot.kill_server()
+    # qqBot.kill_server()
+    pass
 
 
 async def job(args):
@@ -183,7 +188,6 @@ async def job(args):
         config_path = root_path.joinpath('config.toml')
     with open(config_path, encoding='utf-8') as f:
         conf = toml.load(f)
-        # console.print(f'[+] config: {conf}', style='bold green')
     proxy_rss = conf['proxy']['url'] if conf['proxy']['rss'] else ''
     feeds = init_rss(conf['rss'], args.update, proxy_rss)
 
@@ -202,7 +206,7 @@ async def job(args):
                 if result:
                     numb += len(result.values())
                     results.append({title: result})
-        console.print(f'[+] {len(results)} feeds, {numb} articles', style='bold yellow')
+        logger.info(f'{len(results)} feeds, {numb} articles')
 
         # temp_path = root_path.joinpath('temp_data.json')
         # with open(temp_path, 'w+') as f:
