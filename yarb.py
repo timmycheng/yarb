@@ -10,6 +10,7 @@ import argparse
 import datetime
 import listparser
 import feedparser
+import toml
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -30,11 +31,11 @@ def update_today(data: list=[]):
     archive_path = root_path.joinpath(f'archive/{today.split("-")[0]}/{today}.md')
 
     if not data and data_path.exists():
-        with open(data_path, 'r') as f1:
+        with open(data_path, 'r', encoding='utf-8') as f1:
             data = json.load(f1)
 
     archive_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(today_path, 'w+') as f1, open(archive_path, 'w+') as f2:
+    with open(today_path, 'w+', encoding='utf-8') as f1, open(archive_path, 'w+',encoding='utf-8') as f2:
         content = f'# 每日安全资讯（{today}）\n\n'
         for item in data:
             (feed, value), = item.items()
@@ -56,7 +57,7 @@ def update_rss(rss: dict, proxy_url=''):
     if url := value.get('url'):
         r = requests.get(value['url'], proxies=proxy)
         if r.status_code == 200:
-            with open(rss_path, 'w+') as f:
+            with open(rss_path, 'w+', encoding='utf-8') as f:
                 f.write(r.text)
             print(f'[+] 更新完成：{key}')
             result = {key: rss_path}
@@ -99,7 +100,7 @@ def parseThread(conf: dict, url: str, proxy_url=''):
             pubday = datetime.date(d[0], d[1], d[2])
             if pubday == yesterday and filter(entry.title):
                 item = {entry.title: entry.link}
-                print(item)
+                # print(item)
                 result |= item
         console.print(f'[+] {title}\t{url}\t{len(result.values())}/{len(r.entries)}', style='bold green')
     except Exception as e:
@@ -150,7 +151,7 @@ def init_rss(conf: dict, update: bool=False, proxy_url=''):
     for rss in rss_list:
         (_, value), = rss.items()
         try:
-            rss = listparser.parse(open(value).read())
+            rss = listparser.parse(open(value,encoding='utf-8').read())
             for feed in rss.feeds:
                 url = feed.url.strip().rstrip('/')
                 short_url = url.split('://')[-1].split('www.')[-1]
@@ -179,9 +180,9 @@ async def job(args):
     if args.config:
         config_path = Path(args.config).expanduser().absolute()
     else:
-        config_path = root_path.joinpath('config.json')
-    with open(config_path) as f:
-        conf = json.load(f)
+        config_path = root_path.joinpath('config.toml')
+    with open(config_path, encoding='utf-8') as f:
+        conf = toml.load(f)
 
     proxy_rss = conf['proxy']['url'] if conf['proxy']['rss'] else ''
     feeds = init_rss(conf['rss'], args.update, proxy_rss)

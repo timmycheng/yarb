@@ -14,12 +14,12 @@
 
     "bot": {
         "feishu": {
-            "enabled": false,
+            "enabled": true,
             "secrets": "FEISHU_KEY",
-            "key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            "key": "5d8688cb-3b03-45c9-a9b9-23322485e4b7"
         },
         "wecom": {
-            "enabled": true,
+            "enabled": false,
             "secrets": "WECOM_KEY",
             "key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         },
