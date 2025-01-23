@@ -3,12 +3,9 @@ url = "http://127.0.0.1:7890"
 rss = false
 bot = false
 
-# [rss]
-# pathname = "rss"
-
-[rss.CustomRSS]
+[rss]
 enabled = true
-filename = "CustomRSS.opml"
+pathname = "rss"
 
 [bot.feishu]
 enabled = false
