@@ -7,6 +7,10 @@ bot = false
 enabled = true
 pathname = "rss"
 
+[rss.db]
+type = "sqlite"
+dbname = "rss.db"
+
 [[bot]]
 type="feishu"
 secretsName="FEISHU_KEY"

@@ -6,7 +6,9 @@ print(os.getcwd())
 print(os.path.dirname(__file__))
 
 config=toml.load('config.toml')
-print(config['rss'])
+print(config)
+# with toml.load('config.toml') as config:
+#     print(config['rss'])
 
 import time
 
@@ -19,5 +21,6 @@ logger.add(lambda msg: tqdm.write(msg, end=""), colorize=True)
 logger.info("Initializing")
 
 for x in tqdm(range(100)):
-    logger.info("Iterating #{}", x)
-    time.sleep(0.1)
+    logger.error("Iterating #{}", x)
+    time.sleep(2)
+
