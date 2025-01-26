@@ -1,0 +1,31 @@
+test = "test"
+[[bot]]
+type = "feishu"
+secretsName = "FEISHU_KEY"
+key = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+
+[[bot]]
+type = "wecom"
+secretsName = "WECOM_KEY"
+key = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+
+[[bot]]
+type = "dingtalk"
+secretsName = "DINGTALK_KEY"
+key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+[proxy]
+url = "http://127.0.0.1:7890"
+rss = false
+bot = false
+
+[rss]
+enabled = true
+pathname = "rss"
+
+[keywords]
+exclude = [ "招聘", "招生", "开班", "报名", "双非", "倒计时", "圆满", "抽奖", "好礼", "福利", "领取", "火热", "热烈", "欢迎", "美女", "喜报", "喜讯", "惊喜", "恭喜", "签约", "快乐", "颜值", "新冠", "疫情", "疫苗", "核酸", "月薪", "年薪",]
+
+[rss.db]
+type = "sqlite"
+dbname = "rss.db"

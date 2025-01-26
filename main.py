@@ -1,17 +1,12 @@
 # *
 import argparse
+from configloader import ConfigLoader
 from loguru import logger
-from toml import load
 
-
-def loadConfig(test_flag: bool = False):
-    if test_flag:
-        return load("config-test.toml")
-    else:
-        return load("config.toml")
-
+config={}
 
 def update():
+    print(config)
     pass
 
 
@@ -41,10 +36,13 @@ def getArgs():
 
 
 def main():
+    global config
     args=getArgs()
-    conf=loadConfig(args.test)
-    logger.info(f'Config loaded: {len(conf)}')
-    pass
+    if args.test:
+        config=ConfigLoader("config.test.toml")
+    else:
+        config=ConfigLoader("config.toml")
+    config.add_key("test","test")
 
 
 if __name__ == "__main__":
